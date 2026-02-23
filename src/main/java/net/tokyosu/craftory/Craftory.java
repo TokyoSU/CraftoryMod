@@ -1,20 +1,20 @@
-package net.tokyosu.elemental_worlds;
+package net.tokyosu.craftory;
 
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
-import net.tokyosu.elemental_worlds.init.EntityRegistry;
+import net.tokyosu.craftory.network.NetworkHandler;
+import net.tokyosu.craftory.registry.MenuRegistry;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 @SuppressWarnings("removal")
-@Mod(ElementalWorlds.MOD_ID)
-public class ElementalWorlds
+@Mod(Craftory.MOD_ID)
+public class Craftory
 {
-    public static final String MOD_ID = "assets/elemental_worlds";
+    public static final String MOD_ID = "craftory";
     public static final Logger LOGGER = LoggerFactory.getLogger(MOD_ID);
-
-    public ElementalWorlds() {
-        var bus = FMLJavaModLoadingContext.get().getModEventBus();
-        EntityRegistry.ENTITIES.register(bus);
+    public Craftory() {
+        MenuRegistry.init(FMLJavaModLoadingContext.get().getModEventBus());
+        NetworkHandler.register();
     }
 }
