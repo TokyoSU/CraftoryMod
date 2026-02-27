@@ -13,4 +13,5 @@ public class Constants {
     public static final ResourceLocation TRASH_BUTTON = ResourceLocation.fromNamespaceAndPath(Craftory.MOD_ID, "textures/gui/trash_button.png");
     public static final ResourceLocation EXPERIENCE_ORB_ICON = ResourceLocation.fromNamespaceAndPath(Craftory.MOD_ID, "textures/gui/experience_orb.png");
     public static final ResourceLocation BURN_TIME_ICON = ResourceLocation.fromNamespaceAndPath(Craftory.MOD_ID, "textures/gui/burn_time.png");
+    public static final ResourceLocation ENERGY_ICON = ResourceLocation.fromNamespaceAndPath(Craftory.MOD_ID, "textures/gui/energy.png");
 }

@@ -7,7 +7,7 @@ import net.tokyosu.craftory.menu.base.MenuContainerBase;
 import net.tokyosu.craftory.screen.minecraft.base.ScreenContainerBase;
 import org.jetbrains.annotations.NotNull;
 
-public record FurnaceSlotTarget<T extends ScreenContainerBase<S>, S extends MenuContainerBase, C>(@NotNull T gui, int x, int y, int slotIndex) implements IGhostIngredientHandler.Target<C> {
+public record ISlotTarget<T extends ScreenContainerBase<S>, S extends MenuContainerBase, C>(@NotNull T gui, int x, int y, int slotIndex) implements IGhostIngredientHandler.Target<C> {
     @Override
     public @NotNull Rect2i getArea() {
         return new Rect2i(gui.getGuiLeft() + x, gui.getGuiTop() + y, 16, 16);

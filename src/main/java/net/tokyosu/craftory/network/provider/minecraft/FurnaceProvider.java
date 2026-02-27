@@ -1,22 +1,22 @@
-package net.tokyosu.craftory.network.provider;
+package net.tokyosu.craftory.network.provider.minecraft;
 
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.MenuProvider;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
-import net.tokyosu.craftory.menu.minecraft.SmithingMenu;
+import net.tokyosu.craftory.menu.minecraft.FurnaceMenu;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-public class SmithingProvider implements MenuProvider {
+public class FurnaceProvider implements MenuProvider {
     @Override
     public @NotNull Component getDisplayName() {
-        return Component.translatable("menu.smithing_editor.name");
+        return Component.translatable("menu.furnace_editor.name");
     }
 
     @Override
     public @Nullable AbstractContainerMenu createMenu(int containerId, @NotNull Inventory inventory, @NotNull Player player) {
-        return new SmithingMenu(containerId, inventory, player);
+        return new FurnaceMenu(containerId, inventory, player);
     }
 }

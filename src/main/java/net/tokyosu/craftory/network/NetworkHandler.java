@@ -1,9 +1,7 @@
 package net.tokyosu.craftory.network;
 
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.server.level.ServerPlayer;
 import net.minecraftforge.network.NetworkRegistry;
-import net.minecraftforge.network.PacketDistributor;
 import net.minecraftforge.network.simple.SimpleChannel;
 import net.tokyosu.craftory.Craftory;
 import net.tokyosu.craftory.MenuType;
@@ -24,9 +22,5 @@ public class NetworkHandler {
 
     public static void sendOpenEditor(MenuType menuType) {
         NETWORK_CHANNEL.sendToServer(new EditorOpenPacket(menuType));
-    }
-
-    public static void sendToPlayer(EditorOpenPacket packet, ServerPlayer player) {
-        NETWORK_CHANNEL.send(PacketDistributor.PLAYER.with(() -> player), packet);
     }
 }

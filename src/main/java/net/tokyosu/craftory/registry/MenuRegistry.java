@@ -26,12 +26,12 @@ public class MenuRegistry {
 
     public static final RegistryObject<MenuType<AdvancedTableMenu>> ADVANCED_TABLE_MENU = MENUS.register("menu." + Craftory.MOD_ID + ".advancedtable.editor.name", () -> IForgeMenuType.create(AdvancedTableMenu::new));
     public static final RegistryObject<MenuType<BasicTableMenu>> BASIC_TABLE_MENU = MENUS.register("menu." + Craftory.MOD_ID + ".basictable.editor.name", () -> IForgeMenuType.create(BasicTableMenu::new));
-    public static final RegistryObject<MenuType<CompressorMenu>> COMPRESSOR_MENU = MENUS.register("menu." + Craftory.MOD_ID + ".compressor.editor.name", () -> IForgeMenuType.create(CompressorMenu::new));
     public static final RegistryObject<MenuType<EliteTableMenu>> ELITE_TABLE_MENU = MENUS.register("menu." + Craftory.MOD_ID + ".elitetable.editor.name", () -> IForgeMenuType.create(EliteTableMenu::new));
-    public static final RegistryObject<MenuType<EnderCrafterMenu>> ENDER_CRAFTER_MENU = MENUS.register("menu." + Craftory.MOD_ID + ".endercrafter.editor.name", () -> IForgeMenuType.create(EnderCrafterMenu::new));
-    public static final RegistryObject<MenuType<EpicTableMenu>> EPIC_TABLE_MENU = MENUS.register("menu." + Craftory.MOD_ID + ".epictable.editor.name", () -> IForgeMenuType.create(EpicTableMenu::new));
-    public static final RegistryObject<MenuType<FluxCrafterMenu>> FLUX_CRAFTER_MENU = MENUS.register("menu." + Craftory.MOD_ID + ".fluxcrafter.editor.name", () -> IForgeMenuType.create(FluxCrafterMenu::new));
     public static final RegistryObject<MenuType<UltimateTableMenu>> ULTIMATE_TABLE_MENU = MENUS.register("menu." + Craftory.MOD_ID + ".ultimatetable.editor.name", () -> IForgeMenuType.create(UltimateTableMenu::new));
+    public static final RegistryObject<MenuType<EpicTableMenu>> EPIC_TABLE_MENU = MENUS.register("menu." + Craftory.MOD_ID + ".epictable.editor.name", () -> IForgeMenuType.create(EpicTableMenu::new));
+    public static final RegistryObject<MenuType<CompressorMenu>> COMPRESSOR_MENU = MENUS.register("menu." + Craftory.MOD_ID + ".compressor.editor.name", () -> IForgeMenuType.create(CompressorMenu::new));
+    public static final RegistryObject<MenuType<EnderCrafterMenu>> ENDER_CRAFTER_MENU = MENUS.register("menu." + Craftory.MOD_ID + ".endercrafter.editor.name", () -> IForgeMenuType.create(EnderCrafterMenu::new));
+    public static final RegistryObject<MenuType<FluxCrafterMenu>> FLUX_CRAFTER_MENU = MENUS.register("menu." + Craftory.MOD_ID + ".fluxcrafter.editor.name", () -> IForgeMenuType.create(FluxCrafterMenu::new));
 
     public static void init(IEventBus bus) {
         MENUS.register(bus);

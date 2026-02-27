@@ -5,8 +5,10 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
+import net.tokyosu.apocalypselib.utils.ModUtils;
 import net.tokyosu.craftory.Craftory;
 import net.tokyosu.craftory.registry.MenuRegistry;
+import net.tokyosu.craftory.screen.extendedcrafting.*;
 import net.tokyosu.craftory.screen.minecraft.*;
 
 @Mod.EventBusSubscriber(modid = Craftory.MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
@@ -24,7 +26,15 @@ public class ClientModHandler {
             MenuScreens.register(MenuRegistry.SMOKER_MENU.get(), SmokerScreen::new);
 
             // ExtendedCrafting:
-
+            if (ModUtils.isLoaded("extendedcrafting")) {
+                MenuScreens.register(MenuRegistry.ULTIMATE_TABLE_MENU.get(), UltimateCraftingScreen::new);
+                MenuScreens.register(MenuRegistry.EPIC_TABLE_MENU.get(), EpicCraftingScreen::new);
+                MenuScreens.register(MenuRegistry.BASIC_TABLE_MENU.get(), BasicTableScreen::new);
+                MenuScreens.register(MenuRegistry.ELITE_TABLE_MENU.get(), EliteTableScreen::new);
+                MenuScreens.register(MenuRegistry.ADVANCED_TABLE_MENU.get(), AdvancedTableScreen::new);
+                MenuScreens.register(MenuRegistry.ENDER_CRAFTER_MENU.get(), EnderCrafterScreen::new);
+                MenuScreens.register(MenuRegistry.FLUX_CRAFTER_MENU.get(), FluxCrafterScreen::new);
+            }
         });
     }
 }

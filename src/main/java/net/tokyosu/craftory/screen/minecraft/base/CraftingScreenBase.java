@@ -6,7 +6,7 @@ import net.minecraft.client.renderer.Rect2i;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.player.Inventory;
 import net.tokyosu.apocalypselib.menu.button.HoverButton;
-import net.tokyosu.craftory.json.RecipeExporter;
+import net.tokyosu.craftory.io.json.CraftingExporter;
 import net.tokyosu.craftory.menu.base.MenuContainerBase;
 import org.jetbrains.annotations.NotNull;
 import org.joml.Vector2i;
@@ -25,6 +25,8 @@ public abstract class CraftingScreenBase<T extends MenuContainerBase> extends Ed
     public abstract @NotNull String getShapedCraftType();
 
     public abstract @NotNull String getShapelessCraftType();
+
+    public abstract int getCraftTier();
 
     @Override
     public @NotNull Vector2i getSaveButtonPos() {
@@ -53,8 +55,18 @@ public abstract class CraftingScreenBase<T extends MenuContainerBase> extends Ed
     }
 
     @Override
+    public boolean isCraftingHelpShown() {
+        return true;
+    }
+
+    @Override
+    public @NotNull Component getCraftingHelpText() {
+        return Component.translatable("crafting.copy_last_item_help_text");
+    }
+
+    @Override
     public void onSaveButton(@NotNull HoverButton hoverButton) {
-        RecipeExporter.exportCrafting(this.menu.container, this.menu.container.getItem(this.getMaxSlots() - 1), !this.isShapeless(), this.getRowCount(), this.getColumnCount(), this.isShapeless() ? this.getShapelessCraftType() : this.getShapedCraftType());
+        CraftingExporter.export(this.menu.container, this.menu.container.getItem(this.getMaxSlots() - 1), !this.isShapeless(), this.getRowCount(), this.getColumnCount(), this.isShapeless() ? this.getShapelessCraftType() : this.getShapedCraftType(), this.getCraftTier());
     }
 
     @Override

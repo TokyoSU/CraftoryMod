@@ -1,7 +1,9 @@
 package net.tokyosu.craftory.screen.minecraft;
 
 import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
+import net.tokyosu.craftory.Constants;
 import net.tokyosu.craftory.menu.minecraft.CraftingTableMenu;
 import net.tokyosu.craftory.screen.minecraft.base.CraftingScreenBase;
 import org.jetbrains.annotations.NotNull;
@@ -12,13 +14,18 @@ public class CraftingTableScreen extends CraftingScreenBase<CraftingTableMenu> {
     }
 
     @Override
+    public @NotNull ResourceLocation getGuiTexture() {
+        return Constants.MINECRAFT_EDITOR_TEXTURE;
+    }
+
+    @Override
     public int getRowCount() {
-        return 3;
+        return this.menu.getRowCount();
     }
 
     @Override
     public int getColumnCount() {
-        return 3;
+        return this.menu.getColumnCount();
     }
 
     @Override
@@ -29,5 +36,15 @@ public class CraftingTableScreen extends CraftingScreenBase<CraftingTableMenu> {
     @Override
     public @NotNull String getShapelessCraftType() {
         return "minecraft:crafting_shapeless";
+    }
+
+    @Override
+    public int getCraftTier() {
+        return 0;
+    }
+
+    @Override
+    public int getMaxSlots() {
+        return this.menu.getSlotCount(true);
     }
 }

@@ -1,4 +1,4 @@
-package net.tokyosu.craftory.plugins.jei.handler;
+package net.tokyosu.craftory.plugins.jei.handler.minecraft;
 
 import mezz.jei.api.gui.handlers.IGhostIngredientHandler;
 import mezz.jei.api.ingredients.ITypedIngredient;

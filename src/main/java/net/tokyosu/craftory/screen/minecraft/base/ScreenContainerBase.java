@@ -7,15 +7,17 @@ import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.inventory.ClickType;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
-import net.tokyosu.craftory.json.RecipeExporter;
+import net.tokyosu.craftory.io.json.JsonReporter;
 import net.tokyosu.craftory.menu.base.MenuContainerBase;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 public abstract class ScreenContainerBase<T extends MenuContainerBase> extends AbstractContainerScreen<T> {
+    private ItemStack lastPlacedStack;
+
     public ScreenContainerBase(@NotNull T menu, @NotNull Inventory playerInv, @NotNull Component menuName) {
         super(menu, playerInv, menuName);
-        RecipeExporter.setPlayer(playerInv.player);
+        JsonReporter.setPlayer(playerInv.player);
         this.inventoryLabelX = 8000;
         this.inventoryLabelY = 8000;
         this.titleLabelX = 8000;
@@ -31,6 +33,8 @@ public abstract class ScreenContainerBase<T extends MenuContainerBase> extends A
     public abstract void onSlotClicked(@NotNull Slot slot, int slotIndex, int mouseType, @NotNull ClickType clickType);
 
     public abstract boolean onMouseClicked(double mouseX, double mouseY, int mouseType);
+
+    public abstract boolean onKeyPressed(int keyCode, int scanCode, int modifiers);
 
     @Override
     protected void init() {
@@ -65,22 +69,30 @@ public abstract class ScreenContainerBase<T extends MenuContainerBase> extends A
         }
     }
 
+    @Override
+    public boolean keyPressed(int keyCode, int scanCode, int modifiers) {
+        if (this.onKeyPressed(keyCode, scanCode, modifiers)) return true;
+        return super.keyPressed(keyCode, scanCode, modifiers);
+    }
+
     public @NotNull ItemStack getItemInSlot(int slotIndex) {
-        var container = this.menu.container;
-        if (container == null)
-            return ItemStack.EMPTY;
-        return container.getItem(slotIndex);
+        return this.menu.container == null ? ItemStack.EMPTY : this.menu.container.getItem(slotIndex);
+    }
+
+    public @NotNull ItemStack getLastPlacedStack() {
+        return this.lastPlacedStack != null ? this.lastPlacedStack : ItemStack.EMPTY;
     }
 
     public boolean noItemInSlot(int slotIndex) {
-        var container = this.menu.container;
-        if (container == null)
-            return true;
-        return container.getItem(slotIndex) == ItemStack.EMPTY;
+        return this.menu.container == null || this.menu.container.getItem(slotIndex) == ItemStack.EMPTY;
     }
 
     public void removeItemInSlot(int slotIndex) {
         this.menu.container.setItem(slotIndex, ItemStack.EMPTY);
+    }
+
+    public void setLastPlacedStack(@NotNull ItemStack stack) {
+        this.lastPlacedStack = stack;
     }
 
     /**

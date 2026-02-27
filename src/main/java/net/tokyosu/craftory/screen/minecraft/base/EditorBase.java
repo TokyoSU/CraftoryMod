@@ -1,8 +1,10 @@
 package net.tokyosu.craftory.screen.minecraft.base;
 
 import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.renderer.Rect2i;
 import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.inventory.ClickType;
 import net.minecraft.world.inventory.Slot;
@@ -13,16 +15,24 @@ import net.tokyosu.craftory.Constants;
 import net.tokyosu.craftory.menu.base.MenuContainerBase;
 import org.jetbrains.annotations.NotNull;
 import org.joml.Vector2i;
+import org.lwjgl.glfw.GLFW;
 
 public abstract class EditorBase<T extends MenuContainerBase> extends ScreenContainerBase<T> {
     protected final InventoryBuilder baseGUI;
     private HoverButton saveButton;
     private HoverButton trashButton;
 
+    public abstract @NotNull ResourceLocation getGuiTexture();
+
+    public @NotNull Vector2i getGuiTextureSize() {
+        return new Vector2i(256, 256);
+    }
+
     public EditorBase(@NotNull T menu, @NotNull Inventory playerInv, @NotNull Component menuName) {
         super(menu, playerInv, menuName);
         var rect = this.getWindowRect();
-        this.baseGUI = new InventoryBuilder(Constants.MINECRAFT_EDITOR_TEXTURE, rect.getWidth(), rect.getHeight(), 256, 256);
+        var size = this.getGuiTextureSize();
+        this.baseGUI = new InventoryBuilder(this.getGuiTexture(), rect.getWidth(), rect.getHeight(), size.x, size.y);
     }
 
     public abstract @NotNull Vector2i getSaveButtonPos();
@@ -30,6 +40,10 @@ public abstract class EditorBase<T extends MenuContainerBase> extends ScreenCont
     public abstract @NotNull Vector2i getTrashButtonPos();
 
     public abstract void initializeAfter();
+
+    public abstract boolean isCraftingHelpShown();
+
+    public abstract @NotNull Component getCraftingHelpText();
 
     @Override
     public void initialize() {
@@ -66,6 +80,10 @@ public abstract class EditorBase<T extends MenuContainerBase> extends ScreenCont
         this.baseGUI.drawTooltip(this.saveButton.getX(), this.saveButton.getY(), this.getSaveButtonTooltipText(), mouseX, mouseY, 19);
         this.baseGUI.drawTooltip(this.trashButton.getX(), this.trashButton.getY(), this.getTrashButtonTooltipText(), mouseX, mouseY, 19);
 
+        if (this.isCraftingHelpShown()) {
+            this.baseGUI.drawString(0, this.getWindowRect().getHeight() + 30, this.getCraftingHelpText(), 0xFFFFFF);
+        }
+
         this.renderFrontAfter(graphics, partialTick, mouseX, mouseY);
 
         this.renderTooltip(graphics, mouseX, mouseY);
@@ -80,9 +98,17 @@ public abstract class EditorBase<T extends MenuContainerBase> extends ScreenCont
 
     @Override
     public void onSlotClicked(@NotNull Slot slot, int slotIndex, int mouseType, @NotNull ClickType clickType) {
+        if (mouseType == 0 && Screen.hasControlDown()) { // Last slot can be placed with CTRL + left click.
+            this.setSlotIngredient(slotIndex, this.getLastPlacedStack());
+        }
         if (mouseType == 1) { // When item is right-clicked, remove it !
             this.removeItemInSlot(slotIndex);
         }
+    }
+
+    @Override
+    public boolean onKeyPressed(int keyCode, int scanCode, int modifiers) {
+        return false;
     }
 
     @Override
@@ -94,5 +120,6 @@ public abstract class EditorBase<T extends MenuContainerBase> extends ScreenCont
     public void setSlotIngredient(int slotIndex, @NotNull ItemStack ingredient) {
         if (slotIndex < 0 || slotIndex > this.getMaxSlots()) return;
         this.menu.container.setItem(slotIndex, ingredient);
+        this.setLastPlacedStack(ingredient);
     }
 }

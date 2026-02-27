@@ -100,6 +100,8 @@ dependencies {
     runtimeOnly fg.deobf("curse.maven:item-overlay-border-1454110:7649375")
     runtimeOnly fg.deobf("curse.maven:custom-rarity-1037072:7648675")
 
+    implementation fg.deobf("curse.maven:cucumber-272335:7180783")
+    implementation fg.deobf("curse.maven:extended-crafting-expanded-1017786:5613251") // Used for JEI to see the crafting of epic table for the auto crafting.
     implementation fg.deobf("curse.maven:jei-238222:6600311")
     implementation fg.deobf("curse.maven:apocalypselib-1455735:7648246")
 }

@@ -3,10 +3,11 @@ package net.tokyosu.craftory.screen.minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.renderer.Rect2i;
 import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
 import net.tokyosu.apocalypselib.menu.button.HoverButton;
 import net.tokyosu.craftory.Constants;
-import net.tokyosu.craftory.json.RecipeExporter;
+import net.tokyosu.craftory.io.json.SmithingExporter;
 import net.tokyosu.craftory.menu.minecraft.SmithingMenu;
 import net.tokyosu.craftory.screen.minecraft.base.EditorBase;
 import org.jetbrains.annotations.NotNull;
@@ -15,6 +16,21 @@ import org.joml.Vector2i;
 public class SmithingScreen extends EditorBase<SmithingMenu> {
     public SmithingScreen(@NotNull SmithingMenu menu, @NotNull Inventory playerInv, @NotNull Component menuName) {
         super(menu, playerInv, menuName);
+    }
+
+    @Override
+    public @NotNull ResourceLocation getGuiTexture() {
+        return Constants.MINECRAFT_EDITOR_TEXTURE;
+    }
+
+    @Override
+    public boolean isCraftingHelpShown() {
+        return false;
+    }
+
+    @Override
+    public @NotNull Component getCraftingHelpText() {
+        return Component.empty();
     }
 
     @Override
@@ -41,7 +57,7 @@ public class SmithingScreen extends EditorBase<SmithingMenu> {
 
     @Override
     public void onSaveButton(@NotNull HoverButton hoverButton) {
-        RecipeExporter.exportSmithing(this.getItemInSlot(0), this.getItemInSlot(1), this.getItemInSlot(2), this.getItemInSlot(3));
+        SmithingExporter.export(this.getItemInSlot(0), this.getItemInSlot(1), this.getItemInSlot(2), this.getItemInSlot(3));
     }
 
     @Override

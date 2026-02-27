@@ -4,6 +4,7 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.tokyosu.craftory.network.NetworkHandler;
 import net.tokyosu.craftory.registry.MenuRegistry;
+import net.tokyosu.craftory.utils.MethodUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

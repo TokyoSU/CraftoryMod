@@ -1,4 +1,4 @@
-package net.tokyosu.craftory.plugins.jei.handler;
+package net.tokyosu.craftory.plugins.jei.handler.minecraft;
 
 import net.tokyosu.craftory.menu.minecraft.FurnaceMenu;
 import net.tokyosu.craftory.plugins.jei.handler.base.FurnaceIngredientHandlerBase;

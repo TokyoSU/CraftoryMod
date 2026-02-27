@@ -24,6 +24,16 @@ public abstract class FurnaceScreenBase<T extends MenuContainerBase> extends Edi
     public abstract @NotNull String getDefaultCookTime();
 
     @Override
+    public boolean isCraftingHelpShown() {
+        return false;
+    }
+
+    @Override
+    public @NotNull Component getCraftingHelpText() {
+        return Component.empty();
+    }
+
+    @Override
     public void initializeAfter() {
         // Experience count.
         this.experienceBox = new EditBox(this.font, this.leftPos - 120, this.topPos, 100, 20, Component.empty());
@@ -50,7 +60,7 @@ public abstract class FurnaceScreenBase<T extends MenuContainerBase> extends Edi
                 return false;
             }
         });
-        this.cookingBox.setValue("200");
+        this.cookingBox.setValue(this.getDefaultCookTime());
         this.addRenderableWidget(this.cookingBox);
     }
 
@@ -71,7 +81,7 @@ public abstract class FurnaceScreenBase<T extends MenuContainerBase> extends Edi
 
     @Override
     public @NotNull Component getSaveButtonTooltipText() {
-        return Component.literal("Not yet defined !");
+        return Component.translatable("button.save_to_json_not_defined");
     }
 
     @Override
@@ -135,7 +145,12 @@ public abstract class FurnaceScreenBase<T extends MenuContainerBase> extends Edi
         try {
             return Integer.parseInt(cookingBox.getValue());
         } catch (NumberFormatException e) {
-            return 200; // default
+            try {
+                return Integer.parseInt(this.getDefaultCookTime()); // default
+            }
+            catch (NumberFormatException b) {
+                return 200; // In case default cook time is not valid, shouldn't happen !
+            }
         }
     }
 
